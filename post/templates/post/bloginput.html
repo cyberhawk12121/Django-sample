@@ -1,0 +1,80 @@
+{% extends 'post/base.html' %}
+
+
+{% block title %}
+    Block
+{% endblock %}
+
+{% block style %}
+<style>
+        body{
+            /* width: 60%; */
+            margin: 0 auto;
+            background-color: blanchedalmond;
+            /* padding: 50px; */
+        }
+         .title-box{
+            padding: 5px;
+            width: 40%;
+        }
+
+        .content-box{
+            box-sizing: border-box;
+            width: 80%; 
+            height: 50%;
+            }
+        .author-name{
+            padding: 5px;
+            border-radius: 5px;
+            box-sizing: inherit;
+            margin-top: 20px;
+            background-color: #ffecdf;
+            font-weight: bold;
+            font-size: 14px;
+            font-family: sans-serif;
+        }
+        .form-container{
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        ul li{
+          margin: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-sm bg-dark">
+    <ul class="navbar-nav navbar-right">
+      <li class="nav-item">
+        <a class=" btn btn-danger" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-danger" href="">About</a>
+      </li>
+      <li class="nav-item">
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Logout</button>
+        </form>
+        </li>
+    </ul>
+  </nav>
+<br><br>
+
+<main class="form-container">
+
+    <form autocomplete="off" class="form-group" action="" method="POST">
+        {% csrf_token %}
+        <p> Author: <a href=""> <img src="" alt="avatar"> {{ request.user.first_name }} {{ request.user.last_name }}</a></p>
+        <label for="title">Title</label><br>
+        {{ form.title }} <br>
+        <label for="post">Post</label><br>
+        {{ form.content }} <br>
+        <input class="btn btn-danger" type="submit" value="Save">
+
+        
+    </form>
+</main>
+{% endblock %}    

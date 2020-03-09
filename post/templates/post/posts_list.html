@@ -1,0 +1,73 @@
+{% extends 'post/base.html' %}
+{% block title %}Anime India- Posts {% endblock %}
+
+{% block style %}
+    <style>
+        .container{
+            padding: 20px;
+            box-sizing: border-box;
+            width: 80%;
+            margin: 0 auto;
+        }
+        .content-class{
+          box-sizing: border-box;
+            margin: 0 auto;
+            margin: 20px;
+            display:inline-table;
+        }
+        .heading-text{
+            color: rgb(207, 205, 205);
+        }
+        ul li{
+          margin: 5px;
+        }
+    </style>
+    {% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-sm bg-dark">
+  <ul class="navbar-nav navbar-right">
+    <li class="nav-item">
+      <a class=" btn btn-danger" href="{% url 'home' %}">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="btn btn-danger" href="">About</a>
+    </li>
+    {% if request.user.is_authenticated %}
+    <li class="nav-item">
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Logout</button>
+      </form>
+    </li>
+    {% else %}
+    <li class="nav-item">
+      <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+<br><br>
+    <main class="container">
+    {% for list in posts_list %}
+    <div class="content-class">
+        <div class="card text-white bg-info mb-3" style="width: 18rem;">
+            <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+            <div class="card-header"><h3><a href="{% url 'postdetail' list.slug %}" class="heading-text"><u> {{ list.title }}</u></a></h3></div>
+            <div class="card-body">
+            <!-- <h4 class="card-title"></h4> -->
+            <p class="card-text">{{ list.content|truncatewords:"20" }}</p>
+            <div class="foot-text"> 
+                <small> Author: {{ list.author.first_name }} {{ list.author.last_name }}</small><br>
+                <small> Date: {{ list.published_time }}</small> 
+            </div>  <br>
+            <a href="{% url 'postdetail' list.slug %}" class="btn btn-primary">Read more here</a>
+            </div>
+        </div> 
+            <br>     
+    </div>
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% endfor %}
+    </main>
+{% endblock %}

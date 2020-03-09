@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .structure{
+            margin: 0 auto;
+            padding:20px;
+        }
+        .button{
+            padding: 7px;
+            margin: 20px;
+            width: 10%;
+            font-size: 15.5px;
+        }
+        .name{
+            border: 2px solid black;
+            padding:8px;
+            border-radius: 3px;
+            font-size: 20px;
+            display: block;
+            margin: 20px;
+            margin-top: 10px;
+        }
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+</head>
+<body>
+    <form style="margin: 20px; padding: 20px;" method="POST" class="structure">
+        <fieldset>
+            <h2>REGISTER USER</h2>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="button" style="margin-top: 20px;" type="submit" name="Save" value="Register">
+        </fieldset>
+    </form>
+</body>
+</html>

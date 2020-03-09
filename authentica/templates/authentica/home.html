@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark">
+        <ul class="navbar-nav navbar-right">
+          <li class="">
+            <a class=" btn btn-danger" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="">
+            <a class="btn btn-danger" href="">About</a>
+          </li>
+          
+            {% if request.user.is_authenticated %}
+            <li class="">
+              <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Logout</button>
+              </form>
+            </li>
+            <li><a class="btn btn-primary" href="">hello {{ user }}</a></li>
+            <li><a class="btn btn-primary" href="{% url 'createpost' %}"></a></li>
+            <li><a class="btn btn-primary" href="{% url 'postlist' %}"></a></li>
+            
+            {% else %}
+            <li>
+              <a href="{% url 'login' %}">login</a>
+            </li> 
+            {% endif %}
+            
+          </li>
+        </ul>
+      </nav>
+    <br><br>
+
+    
+</body>
+</html>

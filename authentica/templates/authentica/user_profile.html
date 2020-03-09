@@ -1,0 +1,56 @@
+{% extends 'authentica/base.html' %}
+
+
+{% block title %}
+    User: {{ request.user.email }}
+{% endblock %}
+
+{% block pagestyle %}
+ul li{
+    margin: 10px;
+}
+.container{
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #cccccc;
+
+}
+{% endblock %}
+
+{% block navigation %}
+<nav class="navbar navbar-expand-sm bg-dark">
+    <ul class="navbar-nav navbar-right">
+      <li class="">
+        <a class=" btn btn-danger" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="">
+        <a class="btn btn-danger" href="">About</a>
+      </li>
+      <li class="">
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Logout</button>
+        </form>
+      </li>
+    </ul>
+  </nav>
+  <br><br>
+<section class="container">
+    <form action="" method="post" class="form form-group">
+
+        {% csrf_token %}
+        <p><b>Avatar:</b></p>
+        {{ user.avatar }} <br> <br>
+        <p><b>First Name:</b> {{ user.first_name }} </p>
+        <p><b>Last Name:</b> {{ user.last_name }} </p>
+        <p><b>Email:</b> {{ user.email }} </p>
+        
+        <br><br>
+        <input class="btn btn-info" type="submit" name="submit" value="Submit">
+    </form>
+</section>
+
+{% endblock %}
+
+

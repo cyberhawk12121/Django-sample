@@ -1,0 +1,14 @@
+{% extends "authentica/home.html" %}
+
+{% block authenticated_user %}
+
+    {% if request.user.is_authenticated %}
+        <!-- ALL THE CODE THAT SHOULD BE SHOWN TO LOGGED IN USERS -->
+        <div style=" box-sizing:border-box; padding: 20px; background: greenyellow;">  
+            <p style="color: black">Email: {{request.user.email}}</p>
+            <br>
+            <p style="color: black">Password: {{request.user.password}}</p>
+        </div>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Sigmar+One|Zhi+Mang+Xing&display=swap" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <title>Posts Detail</title>
+    <style>
+    .box-style{
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: rgb(196, 188, 188);
+    }
+    .heading-text{
+        text-align: center;
+        font-family: 'Sigmar One', cursive; 
+        font-size: 45px; 
+        text-decoration: underline;
+    }
+    .poem-text{
+        text-align: center;
+        /* text-align: justify; */
+        font-size: 20px;        
+    }
+    pre{
+        font-family: 'Noto Sans', sans-serif;
+        line-height: 30px;
+    }
+    .footer-text{
+        font-size: 17px;
+        background-color: rgb(192, 187, 179);
+        padding: 20px;
+        border-radius: 10px;
+    }
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- <script src="{% static 'forms_ajaxified/js/forms_ajaxified.js' %}"></script> -->
+    
+</head>
+
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark">
+        <ul class="navbar-nav navbar-right ">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">About</a>
+          </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+
+    <main style="width: 60%; margin: 0 auto; background-color: rgb(205, 249, 255);">
+    <div class="box-style">
+        <h1 class="heading-text">{{ posts.title }}</h1> <br>
+        <div class="poem-text">
+           <pre>{{ posts.content }}</pre> 
+        </div>
+        <br><br>
+        <a class="btn btn-primary" href="{% url 'edit' posts.slug %}">Edit</a>
+        <br>
+        <br>
+        <div class="footer-text">
+            <p>Author: {{ posts.author.first_name }} {{ posts.author.last_name }}
+                <br> Posted On: {{ posts.published_time }}
+            </p>
+            <br>
+        </div>
+    {% if request.user.is_authenticated %}
+        <form action="{% url 'like' %}" method="POST" id= "like_form">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger" id="post_id" name="post_id" value="{{ posts.id }}">Like {{ posts.likes.count }}</button>
+        </form>
+    {% else %}
+        <a href="{% url 'login' %}" class="btn btn-primary">Like {{ posts.likes.count }}</a>
+    {% endif %}
+</div>
+</main>
+</body>
+</html>
