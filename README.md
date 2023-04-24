@@ -1,4 +1,4 @@
-# Djangp-sample
+# Django-sample
 Django authentication and the content posting functionality.
 
 * Installing Django and running the code: To install Django make sure pip is installed. After that step go ahead and write following in the terminal "pip install django". 
